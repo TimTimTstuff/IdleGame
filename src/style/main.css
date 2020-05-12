@@ -1,0 +1,14 @@
+body {
+    background-color: antiquewhite;
+    padding: 15px;
+}
+
+#game-area {
+    margin: auto;
+    padding: 10px;
+}
+
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #999999;
+}
