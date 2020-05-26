@@ -34,6 +34,20 @@ class TApiService
         $this->actionInclude[$path] = $file;
     }
 
+    public static function requiredInput($request, array $requiredFields) {
+        if($request['input'] == null) throw new ApiException("No input given", "required_input_missing", $request);
+        $missing = array();
+        foreach ($requiredFields as $key) {
+            if(!array_key_exists($key, $request['input'])){
+                $missing[] = $key;
+            }
+        }
+
+        if(\count($missing) > 0){
+            throw new ApiException("Missing Input: ".\implode(' ,',$missing),"required_input_missing", $request);
+        }
+    }
+
     public static function inputExists($request, $key) {
         if($request['input'] == null) return false;
         return array_key_exists($key,$request['input']);

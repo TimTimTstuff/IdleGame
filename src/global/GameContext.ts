@@ -1,25 +1,32 @@
-import { ISaveHandler, GameLoop, LocalStorageSaveHandler, GameLoopEventRegister, GameEventRegister } from "@timtimtstuff/tstuffgametools";
+import * as TGame from "@timtimtstuff/tstuffgametools";
 import { GameSave } from "./GameSave";
+import { GameConfig } from "./GameConfig";
+import { GameCharacter } from "../gameobjects/GameCharacter";
+import { Inventory } from "@timtimtstuff/tstuffgametools";
 
 export class GameContext {
 
     public static instance : GameContext
     public canvasApp : PIXI.Application
-    public save : ISaveHandler
-    public gameLoop : GameLoop
-    public loopEvents : GameLoopEventRegister
-    public gameEvents : GameEventRegister
-    public gameSave : GameSave = {playerName: 'unknown'}
+    public save : TGame.ISaveHandler
+    public gameLoop : TGame.GameLoop
+    public loopEvents : TGame.GameLoopEventRegister
+    public gameEvents : TGame.GameEventRegister
+    public gameSave : GameSave = <any>{}
+    public htmlGameElement: HTMLElement | null
+    public char: GameCharacter | null = null
     /**
      *
      */
-    constructor(canvasApp : PIXI.Application, gameKey:string) {
+    constructor(canvasApp : PIXI.Application, gameKey:string, gameHtmlElement:string) {
         GameContext.instance = this
+        this.htmlGameElement = document.getElementById(`${gameHtmlElement}`)
         this.canvasApp = canvasApp
-        this.save = new LocalStorageSaveHandler(gameKey)
-        this.gameLoop = new GameLoop()
-        this.loopEvents = new GameLoopEventRegister()
-        this.gameEvents = new GameEventRegister()
+        this.save = new TGame.LocalStorageSaveHandler(gameKey)
+        this.gameLoop = new TGame.GameLoop()
+        this.loopEvents = new TGame.GameLoopEventRegister()
+        this.gameEvents = new TGame.GameEventRegister()
+
         this.setupGameLoop()
         this.setupSaveFile()
     }
@@ -27,6 +34,8 @@ export class GameContext {
     public startGame() {
         this.save.initializeSave()
         this.gameLoop.start()
+        this.htmlGameElement?.append(this.canvasApp.view)
+        console.log(this)
     }
 
     private setupSaveFile() {
@@ -39,8 +48,16 @@ export class GameContext {
 
         this.save.saveLoaded = () => {
             // store loaded object
-            this.gameSave = this.save.getSaveObject('main')
+            let saveObj = <GameSave>this.save.getSaveObject('main')
+            if(saveObj.version == undefined || saveObj.version < GameConfig.saveVersion) {
+                saveObj.version = GameConfig.saveVersion
+                if(saveObj.playerName == undefined) saveObj.playerName = 'unknown'
+                if(saveObj.inventory == undefined) saveObj.inventory = {}
+            }
+            this.gameSave = saveObj
+            this.char = new GameCharacter(new Inventory(this.gameSave.inventory))
             console.log(`Save file loaded!`)
+
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+namespace TStuff;
 class Context {
 
     /**
@@ -6,4 +7,8 @@ class Context {
      */
     public static $db;
 
+    /**
+     * @var TLog
+     */
+    public static $log;
 }
