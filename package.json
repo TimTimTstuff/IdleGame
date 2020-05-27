@@ -19,7 +19,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "@timtimtstuff/tstuffgametools": "^1.1.4",
+    "@timtimtstuff/tstuffgametools": "^1.1.6",
     "pixi.js": "^5.2.4"
   },
   "repository": {

@@ -9,8 +9,8 @@ import { TApiClient } from './global/api/TApiClient'
 
 const ctx = new GameContext(
     new PIXI.Application({
-    width: 300,
-    height: 400,
+    width: 500,
+    height: 300,
     backgroundColor: 0x000000
 }), 
 'tidle',
@@ -19,6 +19,7 @@ const ctx = new GameContext(
 
 ctx.startGame()
 ctx.loopEvents.registerEvent(new AutoSaveLoopEvent())
+
 
 
 let btn = document.getElementById('click_inventory')
@@ -32,28 +33,5 @@ btn?.addEventListener('click', () => {
     char.getInventory().addItem('test')
     console.log(`Add Item, now: ${char.getInventory().getItemAmount('test')}`)
 
-})
-
-TApiClient.baseUrl = 'http://localhost/IdleGame/backend'
-
-TApiClient.sendRequest('test/test',{a:"Hallo",b:"World!"}).then(r => {
-    console.log(r.data)
-    console.log(r.state)
-}).catch(r=>{
-    console.error(r)
-})
-
-TApiClient.sendRequest('test/',{a:"Hallo",b:"World!"}).then(r => {
-    console.log(r.data)
-    console.log(r.state)
-}).catch(r=>{
-    console.error(r)
-})
-
-TApiClient.sendRequest('test/test',{ae:"Hallo",b:"World!"}).then(r => {
-    console.log(r.data)
-    console.log(r.state)
-}).catch(r=>{
-    console.error(r)
 })
 

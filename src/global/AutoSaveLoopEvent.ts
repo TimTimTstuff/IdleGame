@@ -5,7 +5,7 @@ import { GameContext } from "./GameContext";
 export class AutoSaveLoopEvent implements IGameLoopEvent  {
     EVID: string = 'asle01';
     private _lastTime: number = 0
-    private _saveAll: number = 5*1000
+    private _saveAll: number = 25*1000
     isEnabled(): boolean {
         return true
     }

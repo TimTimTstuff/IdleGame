@@ -34,7 +34,7 @@ export class GameContext {
     public startGame() {
         this.save.initializeSave()
         this.gameLoop.start()
-        this.htmlGameElement?.append(this.canvasApp.view)
+        document.getElementById('center')?.append(this.canvasApp.view)
         console.log(this)
     }
 

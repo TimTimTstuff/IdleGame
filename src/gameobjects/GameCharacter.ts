@@ -1,4 +1,4 @@
-import { Inventory } from "@timtimtstuff/tstuffgametools";
+import { Inventory, NumberAttributeBag, NamedNumberAttributes } from "@timtimtstuff/tstuffgametools";
 import { GameContext } from "../global/GameContext";
 
 export class GameCharacter {
