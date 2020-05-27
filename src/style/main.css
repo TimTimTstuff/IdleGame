@@ -4,7 +4,7 @@ body {
 
 #game-area {
    
-    
+    min-width: 900px;
     display: inline-block;
     margin:25px;
 }

@@ -15,6 +15,7 @@ export class GameContext {
     public gameSave : GameSave = <any>{}
     public htmlGameElement: HTMLElement | null
     public char: GameCharacter | null = null
+    public resources: { [index: string]: PIXI.LoaderResource; } = {};
     /**
      *
      */
