@@ -1,7 +1,7 @@
 import * as TGame from "@timtimtstuff/tstuffgametools";
 import { GameSave } from "./GameSave";
 import { GameConfig } from "./GameConfig";
-import { GameCharacter } from "../gameobjects/GameCharacter";
+import { GameCharacter } from "../gameobjects/character/GameCharacter";
 import { Inventory } from "@timtimtstuff/tstuffgametools";
 
 export class GameContext {

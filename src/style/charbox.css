@@ -1,0 +1,15 @@
+#char-box{
+
+}
+
+.char-box-header{
+    height: 25px;
+    cursor: pointer;
+    background-color: wheat;
+    
+}
+
+.char-box-content{
+    border: solid thin gray;
+    background-color: white;
+}

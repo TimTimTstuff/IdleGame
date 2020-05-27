@@ -1,8 +1,8 @@
 import { GameLoop } from "@timtimtstuff/tstuffgametools"
 import * as PIXI from 'pixi.js'
-import { GameContext } from "../global/GameContext"
-import { GameColors } from "../gamedata/canvas/GameColors"
-import { GameTextStyle } from "../gamedata/canvas/GameTextStyle"
+import { GameContext } from "../../global/GameContext"
+import { GameColors } from "../../gamedata/canvas/GameColors"
+import { GameTextStyle } from "../../gamedata/canvas/GameTextStyle"
 
 export class CharacterAttack {
 
@@ -10,34 +10,38 @@ export class CharacterAttack {
     public nextAttack:number = 2*1000
     public castBarContainer:PIXI.Container
     public castBar:PIXI.Sprite
+    public castBarBorder:PIXI.Sprite
     public castBarText: PIXI.Text
     public onAttack:(()=>void) | undefined
-    widhtFactor: number
+
     /**
      *
      */
-    constructor(attackSpeed:number, position:PIXI.Point, barWidthFactor:number) {
+    constructor(attackSpeed:number, container:PIXI.Container) {
         
-        this.widhtFactor = barWidthFactor
         this.attackSpeed = attackSpeed*1000
         this.nextAttack = attackSpeed*1000
 
         this.castBarContainer = new PIXI.Container()
         
-        this.castBar = new PIXI.Sprite(GameContext.instance.resources['white'].texture)
-        this.castBar.tint = GameColors.castBarColor
-        this.castBar.height = 18
+        this.castBar = new PIXI.Sprite(GameContext.instance.resources['fill'].texture)
+        this.castBarBorder = new PIXI.Sprite(GameContext.instance.resources['border'].texture)
+
+        
+        this.castBar.height = 30
+        this.castBarBorder.height = 30
+        this.castBarBorder.width = 200
         
         this.castBarText = new PIXI.Text("",GameTextStyle.CastBarText)
         this.castBarText.tint = 0x333333
         this.castBarText.position = new PIXI.Point(5,2)
 
         this.castBarContainer.addChild(this.castBar)
+        this.castBarContainer.addChild(this.castBarBorder)
         this.castBarContainer.addChild(this.castBarText)
 
-        this.castBarContainer.position = position
-
-        GameContext.instance.canvasApp.stage.addChild(this.castBarContainer)
+        container.addChild(this.castBarContainer)
+        
         
         
     }
@@ -52,14 +56,14 @@ export class CharacterAttack {
     public update() {
        
         
-        this.castBarText.text = `${(Math.round(this.nextAttack/10)/100)} s`
+        //this.castBarText.text = `${(Math.round(this.nextAttack/10)/100)} s`
         this.nextAttack-=GameLoop.deltaTime
         if(this.nextAttack <= 0) {
             this.nextAttack = this.attackSpeed-this.nextAttack
             if(this.onAttack != undefined) this.onAttack()
         }
 
-        this.castBar.width = (100- this.attackPercentage())*this.widhtFactor
+        this.castBar.width = (100- this.attackPercentage())*2
     }
 
 }
