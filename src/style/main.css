@@ -1,7 +1,9 @@
 @import 'charbox.css';
+@import 'textlog.css';
 
 body {
     background-color: #eeeeee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #game-area {
@@ -40,8 +42,14 @@ body {
     background-color: yellowgreen;
 }
 
+#log {
+    height: 96px;
+    background-color: wheat;
+    overflow: auto;
+}
+
 #top {
-    height: 300px;
+    height: 400px;
 }
 
 h1 {

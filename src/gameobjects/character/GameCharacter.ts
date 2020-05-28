@@ -3,6 +3,7 @@ import { GameContext } from "../../global/GameContext";
 import { CharacterAttack } from "./CharacterAttack";
 import * as PIXI from 'pixi.js'
 import { CharacterEquip } from "../player/PlayerEquip";
+import { GameTextLog, GameLogType } from "../../global/util/GameTextLog";
 
 
 export class GameCharacter extends Renderer implements IGameLoopEvent {
@@ -23,7 +24,7 @@ export class GameCharacter extends Renderer implements IGameLoopEvent {
         document.getElementById('right')?.insertAdjacentHTML('beforeend', this.getTemplate())
         this.postRender()
         this._charAttack.onAttack = () => {
-            //console.log('Attack!')
+            GameTextLog.Log('You Attack X wiht Y dealing 0 Dmg',GameLogType.outatt)
         }
         this._container.position = new PIXI.Point(150,250)
         

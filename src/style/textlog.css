@@ -1,0 +1,15 @@
+#log {
+    font-size: 9pt;
+}
+
+.log_type_info {
+    color: blue;
+}
+
+.log_type_inatt {
+    color: red;
+}
+
+.log_type_outatt{
+    color: green;
+}

@@ -2,6 +2,7 @@ import { IGameLoopEvent } from "@timtimtstuff/tstuffgametools";
 import { CharacterAttack } from "./CharacterAttack";
 import { GameContext } from "../../global/GameContext";
 import * as PIXI from 'pixi.js'
+import { GameLogType, GameTextLog } from "../../global/util/GameTextLog";
 
 export interface EnemyData {
     name:string
@@ -31,7 +32,7 @@ export class EnemyCharacter implements IGameLoopEvent {
         GameContext.I.canvasApp.stage.addChild(this._container)
         this._attack = new CharacterAttack(data.attackSpeed,this._container)
         this._attack.onAttack = () => {
-            //console.log(`${data.name} Attacks`)
+            GameTextLog.Log('X Attacks You wiht Y dealing 0 Dmg',GameLogType.inatt)
         }
         this._container.position = pos
         this._container.scale.set(scale,scale)

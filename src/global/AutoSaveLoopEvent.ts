@@ -12,7 +12,7 @@ export class AutoSaveLoopEvent implements IGameLoopEvent  {
     private counter = 0
     update: (() => void) | undefined;
     fixedUpdate: (() => void) | undefined = () => {
-        
+    
         this.counter++
         if(GameLoop.totalTime - this._lastTime >= this._saveAll){
             GameContext.I.save.saveFile()

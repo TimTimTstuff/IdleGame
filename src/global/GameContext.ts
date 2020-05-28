@@ -3,6 +3,7 @@ import { GameSave } from "./GameSave";
 import { GameConfig } from "./GameConfig";
 import { GameCharacter } from "../gameobjects/character/GameCharacter";
 import { Inventory } from "@timtimtstuff/tstuffgametools";
+import { GameTextLog, GameLogType } from "./util/GameTextLog";
 
 export class GameContext {
 
@@ -32,6 +33,8 @@ export class GameContext {
         this.loopEvents = new TGame.GameLoopEventRegister()
         this.gameEvents = new TGame.GameEventRegister()
 
+        GameTextLog.logElement = <HTMLElement>document.getElementById('log')
+
         this.setupGameLoop()
         this.setupSaveFile()
     }
@@ -39,7 +42,8 @@ export class GameContext {
     public startGame() {
         this.save.initializeSave()
         this.gameLoop.start()
-        document.getElementById('center')?.append(this.canvasApp.view)
+        document.getElementById('can')?.append(this.canvasApp.view)
+        GameTextLog.Log('Game started!',GameLogType.info)
         console.log(this)
     }
 
@@ -54,7 +58,7 @@ export class GameContext {
         this.save.saveLoaded = () => {
             // store loaded object
             let saveObj = <GameSave>this.save.getSaveObject('main')
-            
+
             if(saveObj.version == undefined || saveObj.version < GameConfig.saveVersion) {
                 saveObj.version = GameConfig.saveVersion
                 if(saveObj.playerName == undefined) saveObj.playerName = 'unknown'
