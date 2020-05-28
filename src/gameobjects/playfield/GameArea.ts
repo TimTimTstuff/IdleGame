@@ -13,8 +13,8 @@ export class GameArea {
     constructor(areaData:GameAreaData) {
         this._data = areaData
         this.areaContainer = new PIXI.Container()
-        this.areaContainer.addChild(new PIXI.Sprite(GameContext.instance.resources[this._data.backgroundImage].texture))
-        GameContext.instance.canvasApp.stage.addChild(this.areaContainer)
+        this.areaContainer.addChild(new PIXI.Sprite(GameContext.I.resources[this._data.backgroundImage].texture))
+        GameContext.I.canvasApp.stage.addChild(this.areaContainer)
     }
 
 

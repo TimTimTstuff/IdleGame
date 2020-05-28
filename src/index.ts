@@ -11,9 +11,16 @@ const ctx = new GameContext(
     height: 300,
     backgroundColor: 0x000000
 }), 
-'tidle',
-'game-area')
-
+'tidle')
+document.addEventListener('visibilitychange',(e) => {
+  if(document.hidden){
+      ctx.gameLoop.stop()
+    console.log('stop')
+  }else{
+      ctx.gameLoop.start()
+      console.log('start')
+  }
+})
 GameLoader.LoadPixiTextures((resources:({[index:string]:PIXI.LoaderResource})) =>{
   
     ctx.resources = resources

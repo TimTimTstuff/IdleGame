@@ -9,11 +9,13 @@ export class AutoSaveLoopEvent implements IGameLoopEvent  {
     isEnabled(): boolean {
         return true
     }
+    private counter = 0
     update: (() => void) | undefined;
     fixedUpdate: (() => void) | undefined = () => {
-       
+        
+        this.counter++
         if(GameLoop.totalTime - this._lastTime >= this._saveAll){
-            GameContext.instance.save.saveFile()
+            GameContext.I.save.saveFile()
             console.log('Auto Save!', GameLoop.totalTime)
             
             this._lastTime = GameLoop.totalTime

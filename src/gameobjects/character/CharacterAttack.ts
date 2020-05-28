@@ -24,8 +24,8 @@ export class CharacterAttack {
 
         this.castBarContainer = new PIXI.Container()
         
-        this.castBar = new PIXI.Sprite(GameContext.instance.resources['fill'].texture)
-        this.castBarBorder = new PIXI.Sprite(GameContext.instance.resources['border'].texture)
+        this.castBar = new PIXI.Sprite(GameContext.I.resources['fill'].texture)
+        this.castBarBorder = new PIXI.Sprite(GameContext.I.resources['border'].texture)
 
         
         this.castBar.height = 30
@@ -48,6 +48,7 @@ export class CharacterAttack {
 
     public attackPercentage():number {
         let r = Math.round(100/this.attackSpeed*this.nextAttack)
+        
         if(r > 100) return 100
         if(r<0) return 0
         return r
@@ -55,14 +56,12 @@ export class CharacterAttack {
 
     public update() {
        
-        
-        //this.castBarText.text = `${(Math.round(this.nextAttack/10)/100)} s`
+       
         this.nextAttack-=GameLoop.deltaTime
         if(this.nextAttack <= 0) {
-            this.nextAttack = this.attackSpeed-this.nextAttack
+            this.nextAttack = this.attackSpeed
             if(this.onAttack != undefined) this.onAttack()
         }
-
         this.castBar.width = (100- this.attackPercentage())*2
     }
 

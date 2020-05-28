@@ -2,11 +2,13 @@ import { Inventory, IGameLoopEvent, Renderer, HtmlEvents } from "@timtimtstuff/t
 import { GameContext } from "../../global/GameContext";
 import { CharacterAttack } from "./CharacterAttack";
 import * as PIXI from 'pixi.js'
+import { CharacterEquip } from "../player/PlayerEquip";
 
 
 export class GameCharacter extends Renderer implements IGameLoopEvent {
     EVID: string = "";
     private _inventory: Inventory
+    private _equip:CharacterEquip
     private _charAttack: CharacterAttack
     private _container:PIXI.Container
 
@@ -16,7 +18,8 @@ export class GameCharacter extends Renderer implements IGameLoopEvent {
         this._container = new PIXI.Container()
         this._inventory = inv
         this._charAttack = new CharacterAttack(2,this._container)
-        GameContext.instance.loopEvents.registerEvent(this)
+        this._equip = new CharacterEquip()
+        GameContext.I.loopEvents.registerEvent(this)
         document.getElementById('right')?.insertAdjacentHTML('beforeend', this.getTemplate())
         this.postRender()
         this._charAttack.onAttack = () => {
@@ -24,7 +27,7 @@ export class GameCharacter extends Renderer implements IGameLoopEvent {
         }
         this._container.position = new PIXI.Point(150,250)
         
-        GameContext.instance.canvasApp.stage.addChild(this._container)
+        GameContext.I.canvasApp.stage.addChild(this._container)
         
     }
 

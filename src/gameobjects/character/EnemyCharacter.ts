@@ -22,20 +22,20 @@ export class EnemyCharacter implements IGameLoopEvent {
         this._data = data
         this._currentHp = data.hp
         this._container = new PIXI.Container()
-        this._enemySprite = new PIXI.Sprite(GameContext.instance.resources['enemy'].texture)
+        this._enemySprite = new PIXI.Sprite(GameContext.I.resources['enemy'].texture)
        
        
         let scaleFactor = (100/this._enemySprite.width*200)/100
         this._enemySprite.scale.set(scaleFactor,scaleFactor)
         this._container.addChild(this._enemySprite)
-        GameContext.instance.canvasApp.stage.addChild(this._container)
+        GameContext.I.canvasApp.stage.addChild(this._container)
         this._attack = new CharacterAttack(data.attackSpeed,this._container)
         this._attack.onAttack = () => {
             //console.log(`${data.name} Attacks`)
         }
         this._container.position = pos
         this._container.scale.set(scale,scale)
-        GameContext.instance.loopEvents.registerEvent(this)
+        GameContext.I.loopEvents.registerEvent(this)
     }
 
     isEnabled(): boolean {

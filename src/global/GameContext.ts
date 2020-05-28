@@ -6,22 +6,26 @@ import { Inventory } from "@timtimtstuff/tstuffgametools";
 
 export class GameContext {
 
-    public static instance : GameContext
+    public static I : GameContext
+    /* Environment */
     public canvasApp : PIXI.Application
     public save : TGame.ISaveHandler
     public gameLoop : TGame.GameLoop
     public loopEvents : TGame.GameLoopEventRegister
     public gameEvents : TGame.GameEventRegister
-    public gameSave : GameSave = <any>{}
-    public htmlGameElement: HTMLElement | null
+    
+    /* Game Elements */
     public char: GameCharacter | null = null
+
+    /* Data */
     public resources: { [index: string]: PIXI.LoaderResource; } = {};
+    public gameSave : GameSave = <any>{}
+
     /**
      *
      */
-    constructor(canvasApp : PIXI.Application, gameKey:string, gameHtmlElement:string) {
-        GameContext.instance = this
-        this.htmlGameElement = document.getElementById(`${gameHtmlElement}`)
+    constructor(canvasApp : PIXI.Application, gameKey:string) {
+        GameContext.I = this
         this.canvasApp = canvasApp
         this.save = new TGame.LocalStorageSaveHandler(gameKey)
         this.gameLoop = new TGame.GameLoop()
@@ -50,6 +54,7 @@ export class GameContext {
         this.save.saveLoaded = () => {
             // store loaded object
             let saveObj = <GameSave>this.save.getSaveObject('main')
+            
             if(saveObj.version == undefined || saveObj.version < GameConfig.saveVersion) {
                 saveObj.version = GameConfig.saveVersion
                 if(saveObj.playerName == undefined) saveObj.playerName = 'unknown'
@@ -58,7 +63,6 @@ export class GameContext {
             this.gameSave = saveObj
             this.char = new GameCharacter(new Inventory(this.gameSave.inventory))
             console.log(`Save file loaded!`)
-
         }
     }
 

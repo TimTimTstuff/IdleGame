@@ -9,10 +9,11 @@ export class GameLoader{
         PIXI.Loader.shared
         .add('demo_bg',GameLoader.getTexturePath('demo_background.png'))
         .add('white',GameLoader.getTexturePath('white_pixel.png'))
-        .add('enemy',GameLoader.getTexturePath('demo_enemy.png'))
+        .add('enemy1',GameLoader.getTexturePath('demo_enemy.png'))
         .add('enemy2',GameLoader.getTexturePath('demo_enemy_face.png'))
         .add('border',GameLoader.getTexturePath('border.png'))
         .add('fill',GameLoader.getTexturePath('fill.png'))
+        .add('enemy',GameLoader.getTexturePath('st.PNG'))
         .load((l,r)=>{
             
             loadFinsihed(<any>r)
