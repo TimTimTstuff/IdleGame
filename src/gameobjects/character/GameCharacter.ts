@@ -1,6 +1,6 @@
 import { Inventory, IGameLoopEvent, Renderer, HtmlEvents } from "@timtimtstuff/tstuffgametools";
 import { GameContext } from "../../global/GameContext";
-import { CharacterAttack } from "./CharacterAttack";
+import { AttackHandler } from "./CharacterAttack";
 import * as PIXI from 'pixi.js'
 import { CharacterEquip } from "../player/PlayerEquip";
 import { GameTextLog, GameLogType } from "../../global/util/GameTextLog";
@@ -10,7 +10,7 @@ export class GameCharacter extends Renderer implements IGameLoopEvent {
     EVID: string = "";
     private _inventory: Inventory
     private _equip:CharacterEquip
-    private _charAttack: CharacterAttack
+    private _charAttack: AttackHandler
     private _container:PIXI.Container
 
     constructor(inv: Inventory) {
@@ -18,13 +18,14 @@ export class GameCharacter extends Renderer implements IGameLoopEvent {
         this.initializeCharacterData(inv);
         this._container = new PIXI.Container()
         this._inventory = inv
-        this._charAttack = new CharacterAttack(2,this._container)
+        this._charAttack = new AttackHandler(2,this._container)
         this._equip = new CharacterEquip()
         GameContext.I.loopEvents.registerEvent(this)
         document.getElementById('right')?.insertAdjacentHTML('beforeend', this.getTemplate())
         this.postRender()
         this._charAttack.onAttack = () => {
             GameTextLog.Log('You Attack X wiht Y dealing 0 Dmg',GameLogType.outatt)
+            this._inventory.addItem('xp')
         }
         this._container.position = new PIXI.Point(150,250)
         
@@ -47,16 +48,16 @@ export class GameCharacter extends Renderer implements IGameLoopEvent {
         return (
             /*html*/
             `
-           <div id='char-box'>
-            <div data-event='collaps-char-box' class='char-box-header'>Character Information</div>
+           <div class='char-box'>
+            <div data-event='collaps-char-box'  class='char-box-header'>Character Information</div>
             
-            <div class='char-box-content'>
+            <div class='char-box-content' style='display:none;'>
                 <table>
-                <tr><td>Name</td><td>Nephalem</td></tr>
-                <tr><td>Current Hp</td><td ${this.dataModel('curr_hp')}></td></tr>
-                <tr><td>Level</td><td ${this.dataModel('level')}></td></tr>
-                <tr><td>Xp</td><td ${this.dataModel('xp')}></td></tr>
-                <tr><td>Gold</td><td ${this.dataModel('gold')}></td></tr>
+                <tr><th>Name</th><td>Nephalem</td></tr>
+                <tr><th>Current Hp</th><td ${this.dataModel('curr_hp')}></td></tr>
+                <tr><th>Level</th><td ${this.dataModel('level')}></td></tr>
+                <tr><th>Xp</th><td ${this.dataModel('xp')}></td></tr>
+                <tr><th>Gold</th><td ${this.dataModel('gold')}></td></tr>
                 </table>
             </div>
            </div>

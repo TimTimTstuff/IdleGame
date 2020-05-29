@@ -43,8 +43,8 @@ body {
 }
 
 #log {
-    height: 96px;
-    background-color: wheat;
+    height: 82px;
+    
     overflow: auto;
 }
 

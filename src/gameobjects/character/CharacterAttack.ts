@@ -4,10 +4,11 @@ import { GameContext } from "../../global/GameContext"
 import { GameColors } from "../../gamedata/canvas/GameColors"
 import { GameTextStyle } from "../../gamedata/canvas/GameTextStyle"
 
-export class CharacterAttack {
+export class AttackHandler {
 
-    public attackSpeed:number = 2*1000
-    public nextAttack:number = 2*1000
+    public attackSpeed:number
+    public nextAttack:number
+    
     public castBarContainer:PIXI.Container
     public castBar:PIXI.Sprite
     public castBarBorder:PIXI.Sprite

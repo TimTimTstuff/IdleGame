@@ -1,12 +1,19 @@
-#char-box{
+.char-box{
+    margin:5px;
+    
+}
 
+.char-box-content th{
+    text-align: left;
 }
 
 .char-box-header{
     height: 25px;
     cursor: pointer;
     background-color: wheat;
-    
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .char-box-content{

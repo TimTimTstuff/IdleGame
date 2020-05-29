@@ -19,10 +19,40 @@ export class CharacterEquip {
         
     }
 
-    public addEquip(equip:Equip) {
-
+    public addEquip(equip:Equip):Equip | null {
+        let oldEquip = this._equipInSlot[equip.type]
+        this._equipInSlot[equip.type] = equip
+        return oldEquip
     }
 
+    public removeEquip(slot:EquipType): Equip | null {
+        let oldEquip = this._equipInSlot[slot]
+        this._equipInSlot[slot] = null
+        return oldEquip
+    }
+
+    public getEquipStatsBag() : {[index:string]:NumberAttribute[]}{
+        let values: {[index:string]:NumberAttribute[]} = {}
+        Object.keys(this._equipInSlot).forEach(k =>{
+            let slot = this._equipInSlot[parseInt(k)]
+            if(slot == null)
+                return
+            
+            Object.keys(slot.value).forEach(sa => {
+                if(values[sa] == undefined)
+                    values[sa] = []
+                let attr = slot?.value[sa]
+                if(attr == undefined)return   
+                values[sa].push(attr)
+            })
+        })
+
+        return values
+    }
+
+    public getEquipObject(): {[index:number]:Equip|null} {
+        return this._equipInSlot
+    }
 
 } 
 
@@ -30,7 +60,7 @@ export interface Equip {
     name:string
     key:string
     type: EquipType
-    value:NumberAttribute[]
+    value: {[index:string]:NumberAttribute}
     effect:EquipEffect
     minLevel:number
 }

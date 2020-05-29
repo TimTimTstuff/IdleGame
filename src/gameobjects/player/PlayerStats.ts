@@ -1,13 +1,14 @@
-import { NumberAttribute, NumberAttributeType } from "@timtimtstuff/tstuffgametools";
+import { NumberAttribute } from "@timtimtstuff/tstuffgametools";
 
-export class PlayerStats {
-    public hp: NumberAttribute = {key:'base', value:100,type:NumberAttributeType.FIXED_VALUE}
-    public mana: NumberAttribute = {key:'base', value:10,type:NumberAttributeType.FIXED_VALUE}
-    public phyDmg: NumberAttribute = {key:'base', value:1,type:NumberAttributeType.FIXED_VALUE}
-    public magDmg: NumberAttribute = {key:'base', value:1,type:NumberAttributeType.FIXED_VALUE}
-    public hpReg: NumberAttribute = {key:'base', value:1,type:NumberAttributeType.FIXED_VALUE}
-    public manaReg: NumberAttribute = {key:'base', value:1,type:NumberAttributeType.FIXED_VALUE}
-
+export interface PlayerStats{
+    [key:string]:any
+     hp: NumberAttribute 
+     mana: NumberAttribute 
+     phyDmg: NumberAttribute 
+     magDmg: NumberAttribute 
+     hpReg: NumberAttribute 
+     manaReg: NumberAttribute
+     attSpeed: NumberAttribute
 }
 
 export enum TalentType {
@@ -15,8 +16,6 @@ export enum TalentType {
     Talent,
     Skill
 }
-
-
 
 export enum SkillType {
     PDmg,

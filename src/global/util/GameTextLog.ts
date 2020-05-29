@@ -13,5 +13,9 @@ export class GameTextLog {
             /*html*/
             `<div class='log_type_${GameLogType[type]}'>${msg}</span>`
         ))
+        //console.log(GameTextLog.logElement.children.length)
+        if(GameTextLog.logElement.children.length > 100){
+            GameTextLog.logElement.removeChild(<Node>GameTextLog.logElement.lastChild)
+        }
     }
 }
