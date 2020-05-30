@@ -14,6 +14,8 @@ export class GameLoader{
         .add('border',GameLoader.getTexturePath('border.png'))
         .add('fill',GameLoader.getTexturePath('fill.png'))
         .add('enemy',GameLoader.getTexturePath('st.PNG'))
+        .add('l_back',GameLoader.getTexturePath('lb_01.png'))    
+        .add('l_front',GameLoader.getTexturePath('lf_01.png'))    
         .load((l,r)=>{
             
             loadFinsihed(<any>r)
